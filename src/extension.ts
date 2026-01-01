@@ -15,7 +15,7 @@ export function activate(context: ExtensionContext) {
 	const serverModule = context.asAbsolutePath(
 		path.join('out', 'server.js')
 	);
-	
+
 	// Debug options for the server
 	const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
 

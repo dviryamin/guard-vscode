@@ -27,7 +27,6 @@ const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
 let hasConfigurationCapability = false;
 let hasWorkspaceFolderCapability = false;
-let hasDiagnosticRelatedInformationCapability = false;
 
 connection.onInitialize((params: InitializeParams) => {
 	const capabilities = params.capabilities;
@@ -37,11 +36,6 @@ connection.onInitialize((params: InitializeParams) => {
 	);
 	hasWorkspaceFolderCapability = !!(
 		capabilities.workspace && !!capabilities.workspace.workspaceFolders
-	);
-	hasDiagnosticRelatedInformationCapability = !!(
-		capabilities.textDocument &&
-		capabilities.textDocument.publishDiagnostics &&
-		capabilities.textDocument.publishDiagnostics.relatedInformation
 	);
 
 	const result: InitializeResult = {
@@ -55,7 +49,7 @@ connection.onInitialize((params: InitializeParams) => {
 			documentFormattingProvider: true
 		}
 	};
-	
+
 	if (hasWorkspaceFolderCapability) {
 		result.capabilities.workspace = {
 			workspaceFolders: {
@@ -63,7 +57,7 @@ connection.onInitialize((params: InitializeParams) => {
 			}
 		};
 	}
-	
+
 	return result;
 });
 
@@ -85,7 +79,7 @@ interface GuardSettings {
 	indentSize: number;
 }
 
-const defaultSettings: GuardSettings = { 
+const defaultSettings: GuardSettings = {
 	maxNumberOfProblems: 100,
 	formattingEnabled: true,
 	indentSize: 4
@@ -133,10 +127,10 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 	// Simple validation rules
 	const lines = text.split('\n');
-	
+
 	for (let i = 0; i < lines.length && diagnostics.length < settings.maxNumberOfProblems; i++) {
 		const line = lines[i];
-		
+
 		// Check for unterminated strings
 		const stringMatch = line.match(/^[^#]*"[^"]*$/);
 		if (stringMatch) {
@@ -150,7 +144,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 				source: 'guard'
 			});
 		}
-		
+
 		// Check for undefined variables (simple check)
 		const varUsage = line.matchAll(/%([a-zA-Z_][a-zA-Z0-9_]*)/g);
 		for (const match of varUsage) {
@@ -161,8 +155,8 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 				diagnostics.push({
 					severity: DiagnosticSeverity.Warning,
 					range: {
-						start: { line: i, character: match.index! },
-						end: { line: i, character: match.index! + match[0].length }
+						start: { line: i, character: match.index ?? 0 },
+						end: { line: i, character: (match.index ?? 0) + match[0].length }
 					},
 					message: `Variable '${varName}' may not be defined`,
 					source: 'guard'
@@ -176,9 +170,47 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 // Completion
 connection.onCompletion(
-	(_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
+	(textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
 		const items: CompletionItem[] = [];
-		
+		const document = documents.get(textDocumentPosition.textDocument.uri);
+
+		if (!document) {
+			return items;
+		}
+
+		const text = document.getText();
+		const offset = document.offsetAt(textDocumentPosition.position);
+
+		// Check if we're typing after a % character (for variable completion)
+		const textBeforeCursor = text.substring(0, offset);
+		const lastChar = textBeforeCursor.slice(-1);
+		const isVariableContext = lastChar === '%' || /%[a-zA-Z_][a-zA-Z0-9_]*$/.test(textBeforeCursor);
+
+		// Extract all declared variables from the document
+		const variablePattern = /let\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*=/g;
+		const declaredVariables = new Set<string>();
+		let match;
+
+		while ((match = variablePattern.exec(text)) !== null) {
+			declaredVariables.add(match[1]);
+		}
+
+		// If in variable context, only show variables
+		if (isVariableContext) {
+			declaredVariables.forEach((varName, i) => {
+				items.push({
+					label: varName,
+					kind: CompletionItemKind.Variable,
+					data: i,
+					detail: 'variable',
+					insertText: varName,
+					filterText: varName, // Filter by variable name only (% already typed)
+					sortText: `0_${varName}` // Sort variables first
+				});
+			});
+			return items;
+		}
+
 		// Keywords
 		const keywords = ['rule', 'let', 'when', 'some', 'this', 'or', 'not'];
 		keywords.forEach((kw, i) => {
@@ -188,7 +220,7 @@ connection.onCompletion(
 				data: i
 			});
 		});
-		
+
 		// Operators
 		const operators = ['exists', 'empty', 'keys', 'is_string', 'is_list', 'is_struct', 'is_bool', 'is_int', 'is_float', 'is_null', 'IN'];
 		operators.forEach((op, i) => {
@@ -198,7 +230,7 @@ connection.onCompletion(
 				data: keywords.length + i
 			});
 		});
-		
+
 		// Functions
 		const functions = [
 			'json_parse', 'regex_replace', 'join', 'to_lower', 'to_upper',
@@ -215,7 +247,19 @@ connection.onCompletion(
 				insertTextFormat: 2 // Snippet
 			});
 		});
-		
+
+		// Add variables to general completion (with % prefix in insert text)
+		declaredVariables.forEach((varName, i) => {
+			items.push({
+				label: `%${varName}`,
+				kind: CompletionItemKind.Variable,
+				data: keywords.length + operators.length + functions.length + i,
+				detail: 'variable',
+				insertText: `%${varName}`,
+				sortText: `1_${varName}` // Sort after keywords/operators/functions
+			});
+		});
+
 		return items;
 	}
 );
@@ -239,12 +283,12 @@ connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
 		'parse_epoch': 'Parse RFC3339 datetime to epoch\n\nUsage: `let ts = parse_epoch(%datetime)`',
 		'now': 'Get current epoch timestamp\n\nUsage: `let ts = now()`'
 	};
-	
+
 	if (item.label in functionDocs) {
 		item.detail = 'Guard built-in function';
 		item.documentation = functionDocs[item.label];
 	}
-	
+
 	return item;
 });
 
@@ -254,18 +298,18 @@ connection.onHover((params: TextDocumentPositionParams): Hover | undefined => {
 	if (!document) {
 		return undefined;
 	}
-	
+
 	const text = document.getText();
 	const offset = document.offsetAt(params.position);
-	
+
 	// Simple word extraction
 	const wordRange = getWordRangeAtPosition(text, offset);
 	if (!wordRange) {
 		return undefined;
 	}
-	
+
 	const word = text.substring(wordRange.start, wordRange.end);
-	
+
 	// Provide hover for keywords and functions
 	const hoverTexts: Record<string, string> = {
 		'rule': '**rule** - Define a named rule\n\nSyntax: `rule rule_name when condition { ... }`',
@@ -276,7 +320,7 @@ connection.onHover((params: TextDocumentPositionParams): Hover | undefined => {
 		'keys': '**keys** - Filter by map keys in queries\n\nUsage: `this[ keys == /pattern/ ]` or `Condition[ keys == /String(Equals|Like)/ ]`',
 		'count': '**count()** - Count items in collection\n\nReturns the number of items. Must be used in variable assignment.'
 	};
-	
+
 	if (word in hoverTexts) {
 		return {
 			contents: {
@@ -285,7 +329,7 @@ connection.onHover((params: TextDocumentPositionParams): Hover | undefined => {
 			}
 		};
 	}
-	
+
 	return undefined;
 });
 
@@ -295,52 +339,52 @@ connection.onDocumentFormatting((params: DocumentFormattingParams): TextEdit[] =
 	if (!document) {
 		return [];
 	}
-	
+
 	const text = document.getText();
 	const lines = text.split('\n');
 	const formatted: string[] = [];
 	let indent = 0;
 	const indentStr = ' '.repeat(params.options.tabSize || 4);
-	
+
 	for (const line of lines) {
 		let trimmed = line.trim();
-		
+
 		// Skip empty lines
 		if (trimmed === '') {
 			formatted.push('');
 			continue;
 		}
-		
+
 		// Normalize spacing after commas (only one space)
 		trimmed = trimmed.replace(/,\s+/g, ', ');
-		
+
 		// Count opening and closing braces/brackets
 		const openBraces = (trimmed.match(/\{/g) || []).length;
 		const closeBraces = (trimmed.match(/\}/g) || []).length;
 		const openBrackets = (trimmed.match(/\[/g) || []).length;
 		const closeBrackets = (trimmed.match(/\]/g) || []).length;
-		
+
 		const netChange = (openBraces - closeBraces) + (openBrackets - closeBrackets);
-		
+
 		// Decrease indent for lines that close more than they open
 		if (netChange < 0) {
 			indent = Math.max(0, indent + netChange);
 		}
-		
+
 		// Add indented line
 		formatted.push(indentStr.repeat(indent) + trimmed);
-		
+
 		// Increase indent for lines that open more than they close
 		if (netChange > 0) {
 			indent += netChange;
 		}
 	}
-	
+
 	const fullRange = Range.create(
 		Position.create(0, 0),
 		document.positionAt(text.length)
 	);
-	
+
 	return [
 		TextEdit.replace(fullRange, formatted.join('\n'))
 	];
@@ -350,21 +394,21 @@ connection.onDocumentFormatting((params: DocumentFormattingParams): TextEdit[] =
 function getWordRangeAtPosition(text: string, offset: number): { start: number; end: number } | undefined {
 	let start = offset;
 	let end = offset;
-	
+
 	// Find start
 	while (start > 0 && /[a-zA-Z0-9_]/.test(text[start - 1])) {
 		start--;
 	}
-	
+
 	// Find end
 	while (end < text.length && /[a-zA-Z0-9_]/.test(text[end])) {
 		end++;
 	}
-	
+
 	if (start === end) {
 		return undefined;
 	}
-	
+
 	return { start, end };
 }
 

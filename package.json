@@ -63,8 +63,9 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -b",
     "watch": "tsc -b -w",
-    "lint": "eslint ./src --ext .ts",
-    "test": "sh ./scripts/e2e.sh"
+    "lint": "eslint src --ext ts",
+    "lint:fix": "eslint src --ext ts --fix",
+    "package": "vsce package"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1",

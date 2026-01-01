@@ -2,6 +2,8 @@
 
 Language support for AWS CloudFormation Guard DSL, providing syntax highlighting, IntelliSense, diagnostics, and formatting capabilities.
 
+> **Note:** This extension was built using AI agent to demonstrate rapid VS Code extension development with the Language Server Protocol.
+
 ## Features
 
 ### ✅ Syntax Highlighting
