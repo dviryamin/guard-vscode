@@ -1,0 +1,10 @@
+node_modules
+out
+dist
+*.vsix
+.vscode-test/
+.vscode-test-web/
+*.log
+*.js
+*.d.test
+*.tsbuildinfo

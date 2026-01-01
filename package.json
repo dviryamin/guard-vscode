@@ -1,0 +1,82 @@
+{
+  "name": "guard-vscode",
+  "displayName": "AWS CloudFormation Guard VSCode Extension",
+  "description": "Language support for AWS CloudFormation Guard DSL - syntax highlighting, IntelliSense, diagnostics, and formatting",
+  "version": "0.1.0",
+  "publisher": "dviryamin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dviryamin/guard-vscode"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Formatters"
+  ],
+  "keywords": [
+    "cloudformation",
+    "guard",
+    "policy",
+    "validation",
+    "aws"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension",
+  "contributes": {
+    "languages": [
+      {
+        "id": "guard",
+        "aliases": ["Guard", "guard"],
+        "extensions": [".guard"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/guard-icon.svg",
+          "dark": "./icons/guard-icon.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "guard",
+        "scopeName": "source.guard",
+        "path": "./syntaxes/guard.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "CloudFormation Guard",
+      "properties": {
+        "guard.trace.server": {
+          "scope": "window",
+          "type": "string",
+          "enum": ["off", "messages", "verbose"],
+          "default": "off",
+          "description": "Traces the communication between VS Code and the language server."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -b",
+    "watch": "tsc -b -w",
+    "lint": "eslint ./src --ext .ts",
+    "test": "sh ./scripts/e2e.sh"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.11"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/vscode": "^1.75.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  }
+}
