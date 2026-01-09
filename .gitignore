@@ -1,6 +1,7 @@
 node_modules
 out
 dist
+icons/*.png
 *.vsix
 .vscode-test/
 .vscode-test-web/

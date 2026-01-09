@@ -29,12 +29,17 @@
     "languages": [
       {
         "id": "guard",
-        "aliases": ["Guard", "guard"],
-        "extensions": [".guard"],
+        "aliases": [
+          "Guard",
+          "guard"
+        ],
+        "extensions": [
+          ".guard"
+        ],
         "configuration": "./language-configuration.json",
         "icon": {
-          "light": "./icons/guard-icon.svg",
-          "dark": "./icons/guard-icon.svg"
+          "light": "./icons/guard-icon.png",
+          "dark": "./icons/guard-icon.png"
         }
       }
     ],
@@ -52,7 +57,11 @@
         "guard.trace.server": {
           "scope": "window",
           "type": "string",
-          "enum": ["off", "messages", "verbose"],
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
           "default": "off",
           "description": "Traces the communication between VS Code and the language server."
         }
@@ -60,8 +69,9 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -b",
+    "convert-icons": "tsx scripts/convert-icons.ts",
+    "vscode:prepublish": "npm run convert-icons && npm run compile",
+    "compile": "npm run convert-icons && tsc -b",
     "watch": "tsc -b -w",
     "lint": "eslint src --ext ts",
     "lint:fix": "eslint src --ext ts --fix",
@@ -74,10 +84,13 @@
   },
   "devDependencies": {
     "@types/node": "^18.19.0",
+    "@types/sharp": "^0.31.1",
     "@types/vscode": "^1.75.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
     "eslint": "^8.56.0",
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0",
     "typescript": "^5.3.3"
   }
 }
