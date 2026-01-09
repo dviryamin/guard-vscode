@@ -1,0 +1,49 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}/vscode-extension"
+			],
+			"outFiles": [
+				"${workspaceFolder}/vscode-extension/client/out/**/*.js",
+				"${workspaceFolder}/vscode-extension/server/out/**/*.js"
+			],
+			"preLaunchTask": "npm: watch - vscode-extension"
+		},
+		{
+			"name": "Launch Extension (No Watch)",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}/vscode-extension"
+			],
+			"outFiles": [
+				"${workspaceFolder}/vscode-extension/client/out/**/*.js",
+				"${workspaceFolder}/vscode-extension/server/out/**/*.js"
+			]
+		},
+		{
+			"name": "Attach to Language Server",
+			"type": "node",
+			"request": "attach",
+			"port": 6009,
+			"restart": true,
+			"outFiles": [
+				"${workspaceFolder}/vscode-extension/server/out/**/*.js"
+			]
+		}
+	],
+	"compounds": [
+		{
+			"name": "Extension + Language Server",
+			"configurations": [
+				"Launch Extension",
+				"Attach to Language Server"
+			]
+		}
+	]
+}
