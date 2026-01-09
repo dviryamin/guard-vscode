@@ -2,7 +2,7 @@
   "name": "guard-vscode",
   "displayName": "AWS CloudFormation Guard VSCode Extension",
   "description": "Language support for AWS CloudFormation Guard DSL - syntax highlighting, IntelliSense, diagnostics, and formatting",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "publisher": "dviryamin",
   "repository": {
     "type": "git",
@@ -75,7 +75,11 @@
     "watch": "tsc -b -w",
     "lint": "eslint src --ext ts",
     "lint:fix": "eslint src --ext ts --fix",
-    "package": "vsce package"
+    "package": "vsce package",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major",
+    "release:patch": "standard-version --release-as patch"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1",
@@ -90,6 +94,7 @@
     "@typescript-eslint/parser": "^7.0.0",
     "eslint": "^8.56.0",
     "sharp": "^0.34.5",
+    "standard-version": "^9.5.0",
     "tsx": "^4.21.0",
     "typescript": "^5.3.3"
   }

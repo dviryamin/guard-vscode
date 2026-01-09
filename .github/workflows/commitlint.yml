@@ -1,0 +1,61 @@
+name: Validate Commit Messages
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  commitlint:
+    name: Validate Commit Messages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read  # Required to checkout code
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install commitlint
+        run: |
+          npm install --save-dev @commitlint/cli@18.4.4 @commitlint/config-conventional@18.4.4
+
+      - name: Create commitlint config
+        run: |
+          echo "module.exports = {extends: ['@commitlint/config-conventional']};" > commitlint.config.js
+
+      - name: Validate PR commits
+        run: |
+          # Get all commits in the PR
+          COMMITS=$(git log --format=%H origin/${{ github.base_ref }}..HEAD)
+          
+          # Validate each commit
+          FAILED=0
+          for commit in $COMMITS; do
+            echo "Validating commit: $commit"
+            MESSAGE=$(git log --format=%B -n 1 $commit)
+            echo "$MESSAGE" | npx commitlint || FAILED=1
+          done
+          
+          if [ $FAILED -eq 1 ]; then
+            echo ""
+            echo "❌ Some commit messages don't follow the Conventional Commits format."
+            echo ""
+            echo "Please see CONTRIBUTING.md for commit message guidelines."
+            echo ""
+            echo "Required format: <type>: <subject>"
+            echo "Valid types: feat, fix, docs, style, refactor, perf, test, build, ci, chore"
+            echo ""
+            echo "Examples:"
+            echo "  feat: add variable autocompletion"
+            echo "  fix: resolve completion trigger issue"
+            echo "  docs: update README with examples"
+            exit 1
+          fi
+          
+          echo "✅ All commit messages are valid!"

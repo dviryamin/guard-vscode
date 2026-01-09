@@ -9,3 +9,4 @@ icons/*.png
 *.js
 *.d.test
 *.tsbuildinfo
+RELEASE_NOTES.md
