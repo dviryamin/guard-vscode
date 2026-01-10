@@ -483,3 +483,7 @@ BREAKING CHANGE: Configuration keys renamed to guard.* namespace"
 - Review [VS Code Extension API](https://code.visualstudio.com/api)
 - Look at [LSP Documentation](https://microsoft.github.io/language-server-protocol/)
 - Open an issue for discussion
+
+## License
+
+By contributing to this project, you agree that your contributions will be licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
