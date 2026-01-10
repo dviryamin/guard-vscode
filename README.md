@@ -77,15 +77,6 @@ rule s3_bucket_encrypted when %s3_buckets !empty {
 }
 ```
 
-## Configuration
-
-Settings are available under `guard.*`:
-
-- `guard.trace.server`: Trace communication between VS Code and language server
-- `guard.formatting.enabled`: Enable/disable formatting
-- `guard.formatting.indentSize`: Indentation size (default: 4)
-- `guard.validation.enabled`: Enable/disable validation
-
 ## Guard DSL Reference
 
 ### Keywords

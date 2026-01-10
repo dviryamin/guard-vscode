@@ -49,30 +49,15 @@
         "scopeName": "source.guard",
         "path": "./syntaxes/guard.tmLanguage.json"
       }
-    ],
-    "configuration": {
-      "type": "object",
-      "title": "CloudFormation Guard",
-      "properties": {
-        "guard.trace.server": {
-          "scope": "window",
-          "type": "string",
-          "enum": [
-            "off",
-            "messages",
-            "verbose"
-          ],
-          "default": "off",
-          "description": "Traces the communication between VS Code and the language server."
-        }
-      }
-    }
+    ]
   },
   "scripts": {
     "convert-icons": "tsx scripts/convert-icons.ts",
-    "vscode:prepublish": "npm run convert-icons && npm run compile",
+    "vscode:prepublish": "npm run convert-icons && npm run package:bundle",
     "compile": "npm run convert-icons && tsc -b",
-    "watch": "tsc -b -w",
+    "watch": "npm run convert-icons && tsc -b -w",
+    "package:bundle": "npm run convert-icons && tsx esbuild.ts --production",
+    "watch:esbuild": "npm run convert-icons && tsx esbuild.ts --watch",
     "pretest": "npm run compile",
     "test": "node ./out/test/runTest.js",
     "lint": "eslint src --ext ts",
@@ -101,6 +86,7 @@
     "@typescript-eslint/eslint-plugin": "^8.52.0",
     "@typescript-eslint/parser": "^8.52.0",
     "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.27.2",
     "eslint": "^9.39.2",
     "husky": "^9.1.7",
     "mocha": "^11.7.5",
