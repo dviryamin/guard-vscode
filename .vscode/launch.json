@@ -6,11 +6,10 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}/vscode-extension"
+				"--extensionDevelopmentPath=${workspaceFolder}"
 			],
 			"outFiles": [
-				"${workspaceFolder}/vscode-extension/client/out/**/*.js",
-				"${workspaceFolder}/vscode-extension/server/out/**/*.js"
+				"${workspaceFolder}/out/**/*.js",
 			],
 			"preLaunchTask": "npm: watch - vscode-extension"
 		},
@@ -19,11 +18,10 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}/vscode-extension"
+				"--extensionDevelopmentPath=${workspaceFolder}"
 			],
 			"outFiles": [
-				"${workspaceFolder}/vscode-extension/client/out/**/*.js",
-				"${workspaceFolder}/vscode-extension/server/out/**/*.js"
+				"${workspaceFolder}/out/**/*.js",
 			]
 		},
 		{
@@ -33,7 +31,7 @@
 			"port": 6009,
 			"restart": true,
 			"outFiles": [
-				"${workspaceFolder}/vscode-extension/server/out/**/*.js"
+				"${workspaceFolder}/out/**/*.js"
 			]
 		}
 	],
