@@ -2,7 +2,7 @@
   "name": "guard-vscode",
   "displayName": "Guard",
   "description": "Language support for AWS CloudFormation Guard DSL - syntax highlighting, IntelliSense, diagnostics, and formatting",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "publisher": "dviryamin",
   "icon": "icons/guard-icon-128.png",
   "repository": {
