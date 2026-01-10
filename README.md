@@ -126,3 +126,7 @@ Contributions are welcome! Please see [CONTRIBUTING.md](../CONTRIBUTING.md) for 
 - [CloudFormation Guard Repository](https://github.com/aws-cloudformation/cloudformation-guard)
 - [Guard Documentation](../docs/)
 - [VS Code Extension API](https://code.visualstudio.com/api)
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
