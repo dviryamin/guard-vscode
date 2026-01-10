@@ -81,7 +81,8 @@
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
-    "release:patch": "standard-version --release-as patch"
+    "release:patch": "standard-version --release-as patch",
+    "prepare": "husky"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1",
@@ -89,6 +90,9 @@
     "vscode-languageserver-textdocument": "^1.0.11"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.3.1",
+    "@commitlint/config-conventional": "^20.3.1",
+    "@commitlint/types": "^20.3.1",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "^25.0.6",
@@ -98,6 +102,7 @@
     "@typescript-eslint/parser": "^8.52.0",
     "@vscode/test-electron": "^2.5.2",
     "eslint": "^9.39.2",
+    "husky": "^9.1.7",
     "mocha": "^11.7.5",
     "sharp": "^0.34.5",
     "standard-version": "^9.5.0",
