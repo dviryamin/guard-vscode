@@ -113,6 +113,56 @@ const hoverTexts: Record<string, string> = {
 
 ## Testing
 
+### Automated Testing
+
+The extension includes a comprehensive test suite that validates compatibility with the declared minimum VS Code version.
+
+**Run Tests:**
+```bash
+npm test
+```
+
+This will:
+1. Compile the TypeScript code
+2. Download the minimum required VS Code version (from `package.json`)
+3. Run all tests against that version
+4. Report results
+
+**Test Structure:**
+```
+src/test/
+├── runTest.ts              # Test runner using @vscode/test-electron
+├── suite/
+│   ├── index.ts           # Mocha test suite configuration
+│   └── extension.test.ts  # Extension compatibility tests
+```
+
+**What's Tested:**
+- ✅ VS Code version compatibility validation
+- ✅ Extension activation on minimum supported version
+- ✅ Guard language registration
+- ✅ .guard file handling
+- ✅ Extension presence and metadata
+
+**Adding New Tests:**
+
+Create test files in `src/test/suite/` with the `.test.ts` extension:
+
+```typescript
+import * as assert from 'assert';
+import * as vscode from 'vscode';
+
+suite('My Test Suite', () => {
+    test('My test case', () => {
+        assert.strictEqual(1 + 1, 2);
+    });
+});
+```
+
+**CI/CD Integration:**
+
+Tests run automatically on pull requests via GitHub Actions. The CI uses `xvfb-run` for headless testing on Linux.
+
 ### Manual Testing
 
 1. Press `F5` to launch Extension Development Host
