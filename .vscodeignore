@@ -21,8 +21,6 @@ CONTRIBUTING.md
 scripts/**
 icons/*.svg
 **/README.md
-**/LICENSE
-**/LICENSE.*
 **/*.md
 !README.md
 !CHANGELOG.md
