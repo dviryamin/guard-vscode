@@ -20,7 +20,7 @@ Thank you for your interest in contributing to this project! This guide will hel
 
 - Node.js (v18 or higher)
 - npm (v8 or higher)
-- VS Code (v1.75.0 or higher)
+- VS Code (v1.85.0 or higher)
 - TypeScript knowledge
 - Familiarity with Language Server Protocol (LSP) is helpful
 

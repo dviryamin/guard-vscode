@@ -9,7 +9,7 @@
     "url": "https://github.com/dviryamin/guard-vscode"
   },
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.85.0"
   },
   "categories": [
     "Programming Languages",
@@ -88,8 +88,8 @@
   },
   "devDependencies": {
     "@types/node": "^25.0.6",
-    "@types/sharp": "^0.31.1",
-    "@types/vscode": "^1.75.0",
+    "@types/sharp": "^0.32.0",
+    "@types/vscode": "^1.85.0",
     "@typescript-eslint/eslint-plugin": "^8.52.0",
     "@typescript-eslint/parser": "^8.52.0",
     "eslint": "^9.39.2",
