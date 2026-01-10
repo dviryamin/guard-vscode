@@ -87,7 +87,7 @@
     "vscode-languageserver-textdocument": "^1.0.11"
   },
   "devDependencies": {
-    "@types/node": "^18.19.0",
+    "@types/node": "^25.0.6",
     "@types/sharp": "^0.31.1",
     "@types/vscode": "^1.75.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
