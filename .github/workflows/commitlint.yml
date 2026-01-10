@@ -23,7 +23,7 @@ jobs:
 
       - name: Install commitlint
         run: |
-          npm install --save-dev @commitlint/cli@18.4.4 @commitlint/config-conventional@18.4.4
+          npm install --save-dev @commitlint/cli@20.3.1 @commitlint/config-conventional@20.3.1
 
       - name: Create commitlint config
         run: |
