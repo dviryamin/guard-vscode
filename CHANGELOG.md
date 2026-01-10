@@ -4,16 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.1.8](https://github.com/dviryamin/guard-vscode/compare/v0.1.7...v0.1.8) (2026-01-10)
 
-### [0.1.7](https://github.com/dviryamin/guard-vscode/compare/v0.1.6...v0.1.7) (2026-01-10)
-
-
-### 👷 CI/CD
-
-* build extension on published release ([d266eb3](https://github.com/dviryamin/guard-vscode/commit/d266eb3c84d67cc23402f06c825797858d98759f))
-
-### [0.1.6](https://github.com/dviryamin/guard-vscode/compare/v0.1.5...v0.1.6) (2026-01-10)
-
-
 ### 🔧 Build System
 
 * update VSCode debug and task configurations ([3cb32cf](https://github.com/dviryamin/guard-vscode/commit/3cb32cf2601e00132a53035036b4bd938c9fad93))
@@ -23,10 +13,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 * generate extension icons in multiple sizes ([98659c7](https://github.com/dviryamin/guard-vscode/commit/98659c78309e4e71274031d6f1691d8d066a7d0c))
 
-
 ### 👷 CI/CD
 
-* build extension on draft release ([acb1bc8](https://github.com/dviryamin/guard-vscode/commit/acb1bc8e61750a51e2f5766bc728492873623efd))
+* build extension on published release ([d266eb3](https://github.com/dviryamin/guard-vscode/commit/d266eb3c84d67cc23402f06c825797858d98759f))
 
 ### [0.1.5](https://github.com/dviryamin/guard-vscode/compare/v0.1.3...v0.1.5) (2026-01-10)
 
