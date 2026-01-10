@@ -49,24 +49,7 @@
         "scopeName": "source.guard",
         "path": "./syntaxes/guard.tmLanguage.json"
       }
-    ],
-    "configuration": {
-      "type": "object",
-      "title": "CloudFormation Guard",
-      "properties": {
-        "guard.trace.server": {
-          "scope": "window",
-          "type": "string",
-          "enum": [
-            "off",
-            "messages",
-            "verbose"
-          ],
-          "default": "off",
-          "description": "Traces the communication between VS Code and the language server."
-        }
-      }
-    }
+    ]
   },
   "scripts": {
     "convert-icons": "tsx scripts/convert-icons.ts",
