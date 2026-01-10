@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/dviryamin/guard-vscode/compare/v0.1.6...v0.1.7) (2026-01-10)
+
+
+### 👷 CI/CD
+
+* build extension on published release ([d266eb3](https://github.com/dviryamin/guard-vscode/commit/d266eb3c84d67cc23402f06c825797858d98759f))
+
 ### [0.1.6](https://github.com/dviryamin/guard-vscode/compare/v0.1.5...v0.1.6) (2026-01-10)
 
 

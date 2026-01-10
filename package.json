@@ -2,7 +2,7 @@
   "name": "guard-vscode",
   "displayName": "AWS CloudFormation Guard VSCode Extension",
   "description": "Language support for AWS CloudFormation Guard DSL - syntax highlighting, IntelliSense, diagnostics, and formatting",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "publisher": "dviryamin",
   "icon": "icons/guard-icon-128.png",
   "repository": {
