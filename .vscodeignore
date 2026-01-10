@@ -27,3 +27,4 @@ icons/*.svg
 !README.md
 !CHANGELOG.md
 esbuild.ts
+.husky/**
