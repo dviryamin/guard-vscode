@@ -115,6 +115,16 @@ jobs:
             echo "Release v$VERSION" > RELEASE_NOTES.md
           fi
 
+      - name: Compile TypeScript
+        run: npm run compile
+
+      - name: Package extension
+        run: npm run package
+
+      - name: Get extension version
+        id: get_version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
       - name: Create GitHub Release
         if: steps.check_changes.outputs.has_changes == 'true'
         uses: softprops/action-gh-release@v1
@@ -122,6 +132,7 @@ jobs:
           tag_name: v${{ steps.standard_version.outputs.new_version }}
           name: v${{ steps.standard_version.outputs.new_version }}
           body_path: RELEASE_NOTES.md
+          files: guard-vscode-${{ steps.get_version.outputs.version }}.vsix
           draft: true
           prerelease: false
         env:
