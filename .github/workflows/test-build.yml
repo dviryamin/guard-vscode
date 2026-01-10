@@ -1,0 +1,39 @@
+name: Test Build
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-build:
+    name: Test Extension Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile TypeScript
+        run: npm run compile
+
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+
+      - name: Package extension
+        run: npm run package
+
+      - name: Verify package was created
+        run: |
+          if [ ! -f guard-vscode-*.vsix ]; then
+            echo "Error: VSIX package was not created"
+            exit 1
+          fi
+          echo "✓ Extension package created successfully"
