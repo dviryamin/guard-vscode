@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/dviryamin/guard-vscode/compare/v0.1.8...v0.1.9) (2026-02-01)
+
+
+### 👷 CI/CD
+
+* add concurrency to test-build ([13add68](https://github.com/dviryamin/guard-vscode/commit/13add68670ba16ebfa65fad3ed3d169a6458a801))
+* add pr title validation ([dc30e49](https://github.com/dviryamin/guard-vscode/commit/dc30e490f51f73788a30380e1becdd570c1d617e))
+* consolidate release workflow with extension packaging ([c4d85c6](https://github.com/dviryamin/guard-vscode/commit/c4d85c62ab8713f8804279c1cabe513a51e2658c))
+
 ### [0.1.8](https://github.com/dviryamin/guard-vscode/compare/v0.1.7...v0.1.8) (2026-01-10)
 
 ### 🔧 Build System
