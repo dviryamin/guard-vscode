@@ -107,8 +107,8 @@ jobs:
           VERSION="${{ steps.standard_version.outputs.new_version }}"
           
           # standard-version uses ### [version] format
-          # Get content between the latest version header and the next version header or end
-          awk "/^### \[$VERSION\]/,/^### \[|^## \[/ { if (/^### \[$VERSION\]/) next; if (/^### \[|^## \[/) exit; print }" CHANGELOG.md > RELEASE_NOTES.md
+          # Get content between the latest version header and the next version header
+          awk "/^### \\[$VERSION\\]/ { flag=1; next } /^### \\[/ { if (flag) exit } flag" CHANGELOG.md > RELEASE_NOTES.md
           
           # If RELEASE_NOTES.md is empty, use a default message
           if [ ! -s RELEASE_NOTES.md ]; then
