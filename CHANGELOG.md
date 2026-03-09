@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/dviryamin/guard-vscode/compare/v0.1.9...v0.1.10) (2026-03-09)
+
+
+### 🔧 Build System
+
+* **deps-dev:** bump @commitlint/types from 20.3.1 to 20.4.0 ([044bf9a](https://github.com/dviryamin/guard-vscode/commit/044bf9a378e5656ee2a78234ecbf37a95a68dc9f))
+
+
+### 🐛 Bug Fixes
+
+* patch packages according dependabot ([f6cbcf1](https://github.com/dviryamin/guard-vscode/commit/f6cbcf12db286ec04b79c146b5cc144d0298a052))
+* resolve npm audit vulnerabilities in dependencies ([ae2dc32](https://github.com/dviryamin/guard-vscode/commit/ae2dc325a80028540a7139d3b06d903019dac85a))
+
 ### [0.1.9](https://github.com/dviryamin/guard-vscode/compare/v0.1.8...v0.1.9) (2026-02-01)
 
 
