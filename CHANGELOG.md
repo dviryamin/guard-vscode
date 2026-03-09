@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://github.com/dviryamin/guard-vscode/compare/v0.1.8...v0.1.11) (2026-03-09)
+
+
+### 🔧 Build System
+
+* **deps-dev:** bump @commitlint/types from 20.3.1 to 20.4.0 ([044bf9a](https://github.com/dviryamin/guard-vscode/commit/044bf9a378e5656ee2a78234ecbf37a95a68dc9f))
+
+
+### 🐛 Bug Fixes
+
+* patch packages according dependabot ([f6cbcf1](https://github.com/dviryamin/guard-vscode/commit/f6cbcf12db286ec04b79c146b5cc144d0298a052))
+* resolve npm audit vulnerabilities in dependencies ([ae2dc32](https://github.com/dviryamin/guard-vscode/commit/ae2dc325a80028540a7139d3b06d903019dac85a))
+
+
+### 👷 CI/CD
+
+* add concurrency to test-build ([13add68](https://github.com/dviryamin/guard-vscode/commit/13add68670ba16ebfa65fad3ed3d169a6458a801))
+* add pr title validation ([dc30e49](https://github.com/dviryamin/guard-vscode/commit/dc30e490f51f73788a30380e1becdd570c1d617e))
+* consolidate release workflow with extension packaging ([c4d85c6](https://github.com/dviryamin/guard-vscode/commit/c4d85c62ab8713f8804279c1cabe513a51e2658c))
+* fix release notes extraction awk pattern ([add210a](https://github.com/dviryamin/guard-vscode/commit/add210a2e24a5613595a01728aa3fd592700b60d))
+
 ### [0.1.10](https://github.com/dviryamin/guard-vscode/compare/v0.1.9...v0.1.10) (2026-03-09)
 
 
